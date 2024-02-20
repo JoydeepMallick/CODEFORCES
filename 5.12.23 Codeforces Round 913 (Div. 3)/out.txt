@@ -1,0 +1,27 @@
+_____ TEST CASE #1 _____
+ity
+_____ TEST CASE #2 _____
+YetnotherrokenKeoard
+_____ TEST CASE #3 _____
+le
+_____ TEST CASE #4 _____
+Imprle
+_____ TEST CASE #5 _____
+revile
+_____ TEST CASE #6 _____
+
+_____ TEST CASE #7 _____
+usyasaeeinaedofloominglossoms
+_____ TEST CASE #8 _____
+CDARIES
+_____ TEST CASE #9 _____
+codeforces
+_____ TEST CASE #10 _____
+es
+_____ TEST CASE #11 _____
+
+_____ TEST CASE #12 _____
+helaoard
+_____ TEST CASE #13 _____
+elo
+0.0588ms

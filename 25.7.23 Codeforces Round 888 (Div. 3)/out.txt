@@ -1,0 +1,25 @@
+_____ TEST CASE #1 _____
+YES
+_____ TEST CASE #2 _____
+YES
+_____ TEST CASE #3 _____
+NO
+_____ TEST CASE #4 _____
+YES
+_____ TEST CASE #5 _____
+YES
+_____ TEST CASE #6 _____
+NO
+_____ TEST CASE #7 _____
+YES
+_____ TEST CASE #8 _____
+NO
+_____ TEST CASE #9 _____
+NO
+_____ TEST CASE #10 _____
+NO
+_____ TEST CASE #11 _____
+NO
+_____ TEST CASE #12 _____
+NO
+40.1084ms

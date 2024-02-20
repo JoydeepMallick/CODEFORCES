@@ -1,0 +1,20 @@
+_____ TEST CASE #1 _____
+YES
+YES
+NO
+YES
+_____ TEST CASE #2 _____
+YES
+NO
+_____ TEST CASE #3 _____
+NO
+YES
+YES
+YES
+NO
+YES
+YES
+YES
+YES
+NO
+69.6551ms
