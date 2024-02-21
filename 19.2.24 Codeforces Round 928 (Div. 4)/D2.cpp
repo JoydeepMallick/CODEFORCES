@@ -5,6 +5,7 @@
 */
 
 #include"bits/stdc++.h"
+#include <unordered_map>
 #pragma GCC optimize("O3,unroll-loops")
 // #pragma GCC target("bmi,bmi2,lzcnt,popcnt") 
 // #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt") //intel pentium porcessors released post 2020 support avx2, unfortunately my Pentium 2020M doesn't 
@@ -122,27 +123,27 @@ const ll INF=1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/ 
 
-int ans[200005] = {0};
 
-void precompute(){
-  fori(1, 200001){
-    int sm = 0;
-    int n = i;
-    while(n!=0){
-      sm += n%10;
-      n/=10;
-    }
-    ans[i] = ans[i-1] + sm;
-  }
-}
 
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
   ll n;
   cin >> n;
-  cout << ans[n] << endl;
-
+  map<int, int> taken;
+  int paircnt = 0;
+  fori(0,n){
+    int x;cin >> x;
+    int oppo = ((1 << 31)-1) ^ x;
+    if(!taken[x]){
+      paircnt++;
+      taken[oppo]++;
+    }
+    else{
+      taken[x]--;
+    }
+  }
+  cout << paircnt << endl;
 }
 
 int main(){
@@ -153,7 +154,6 @@ int main(){
   cin >> t;
   auto t1 = std::chrono::high_resolution_clock::now();
   int temp = t;
-  precompute();
   while(t--){
 #ifndef ONLINE_JUDGE
     cout << "_____ TEST CASE #" << temp-t << " _____" << endl;
