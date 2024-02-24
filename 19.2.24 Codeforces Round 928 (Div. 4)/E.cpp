@@ -130,9 +130,21 @@ const ld PI = 3.141592653589793238462;
 void test(){
   ll n, k;
   cin >> n >> k;
-    
-  cout << kthele[k] << endl;
+//assume n = 20, k = 13 
+// odd   1  3  5  7  9 11 13 15 17 19 
+// 2xodd 2  6  10 14 18 
+// 3xodd 
+// 4xodd 4  12 20 
+// 5xodd
+// 6xodd
+// 7xodd
+// 8xodd 8 
+// ...
+// 16xodd 16
 
+
+  //hence lets store count for each such level except for empty ones 
+  //each level contains ceil(len(prevfilledlevel)/2) elements
 }
 
 int main(){
