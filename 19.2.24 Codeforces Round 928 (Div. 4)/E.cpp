@@ -131,20 +131,50 @@ void test(){
   ll n, k;
   cin >> n >> k;
 //assume n = 20, k = 13 
-// odd   1  3  5  7  9 11 13 15 17 19 
-// 2xodd 2  6  10 14 18 
+// odd   1  3  5  7  9 11 13 15 17 19 -- 10 elements
+// 2xodd 2  6  10 14 18 -- 5 elements 
 // 3xodd 
-// 4xodd 4  12 20 
-// 5xodd
+// 4xodd 4  12 20  -- 3 elements 
+// 5xodd  
 // 6xodd
 // 7xodd
-// 8xodd 8 
+// 8xodd 8 -- 1 element  
 // ...
-// 16xodd 16
+// 16xodd 16 -- 1 element
 
 
   //hence lets store count for each such level except for empty ones 
   //each level contains ceil(len(prevfilledlevel)/2) elements
+
+  vll levelsizes;
+  ll remaining = n;
+  while(remaining > 0){
+    ll lvlsize = ceil(remaining/2.0);
+    levelsizes.pb(lvlsize);
+    remaining = remaining - lvlsize;
+  }
+
+  // hence it k <= no of elements in first level just print kth odd element i.e. 2k-1 
+  // for remaining possible levels its always of the form 2 ^ (level) * some jth odd element of first level. Now we need to determine j and this can be done using prefix sum of number of elements in each level and then finding that value from prefix sum which is greater than equal to k and then j = prefix value - k.
+  vll prefsum(levelsizes.size());
+  prefsum[0] = levelsizes[0];
+  if(k <= levelsizes[0]){
+    cout << 2*k -1 << endl;
+    return;
+  }
+  int ind = -1, lvl = -1;
+  fori(1, levelsizes.size()){
+    prefsum[i] = prefsum[i-1] + levelsizes[i];
+    if(k <= prefsum[i]){
+      ind = prefsum[i] - k;
+      lvl = i;
+      break;
+    }
+  }
+  cout << powl(2, lvl) * (2*lvl - 1) << endl;
+
+  
+
 }
 
 int main(){
