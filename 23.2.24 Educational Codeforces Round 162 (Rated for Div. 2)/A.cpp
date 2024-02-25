@@ -127,37 +127,34 @@ const ld PI = 3.141592653589793238462;
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-  ll n, m;string s;
-  cin >> n >> m;
+  ll n;
+  cin >> n;
   vll a(n); 
   read(a);
-  cin >> s;
 
-  //brite force of product then divide is not feasible
-  //in worst case the macx value of product can be 1e4 raised to power of 2e5 which is impractical and also we need to consider negatives, so compute in reverse fashion
-
-  ll l = 0, r = n-1;
-  //find the last index to be deleted, go till 2nd last
-  fori(0,n-1){
-    if(s[i] == 'L') l++;
-    else r--;
-  }
-  assert(l==r);
-  ll start = l;
-  vll ans(n);
-  ans[n-1] = a[start] % m;
-  //l and r now expand in reversed fashion from default value start
-  rfor(i, n-2, -1){
-    ll ele;
-    if(s[i] == 'R') ele = a[++r];
-    else ele = a[--l];
-    ans[i] = (ans[i+1] * ele) % m;
+  //problem boils down to counting 0s that exist betweeen  1s on both sides
+  ll left1 = -1, right1 = -1;
+  fori(0,n){
+    if(a[i] == 1) {
+      left1 = i;
+      break;
+    }
   }
 
-  assert(l==0 && r==n-1);
-  print(ans);
+  rfor(i, n-1, -1){
+    if(a[i] == 1){
+      right1 = i;
+      break;
+    }
+  }
 
-  
+    ll ans = 0;
+  if(left1 != right1){
+    fori(left1+1, right1){
+      ans += (a[i] == 0);
+    }
+  }
+cout << ans << endl;
 }
 
 int main(){

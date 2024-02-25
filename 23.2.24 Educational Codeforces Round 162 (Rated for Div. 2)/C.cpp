@@ -1,8 +1,8 @@
 /*
    _________________________
    | Written by silent_Joy |
-     ---------~u~---------  
-*/
+   ---------~u~---------  
+   */
 
 #include"bits/stdc++.h"
 #pragma GCC optimize("O3,unroll-loops")
@@ -15,7 +15,7 @@ using namespace std;
 using ll = long long; // -2^63 to 2^63 - 1
 using ull = unsigned long long; // 0 to 2^64 - 1
 using ld = long double; // 12 bytes (12*8 bits)
-//vector macro
+                        //vector macro
 using vll = vector<ll>;
 using vvll = vector< vector<ll> >;
 using vpll = vector<pair<ll,ll>>;
@@ -127,60 +127,74 @@ const ld PI = 3.141592653589793238462;
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-  ll n, m;string s;
-  cin >> n >> m;
-  vll a(n); 
-  read(a);
-  cin >> s;
+    ll n,q;
+    cin >> n >> q;
+    vll c(n); 
+    read(c);
+    vector<ll> c_fr;
+    unordered_map<ll,ll> fr;
+    fori(0,n){
+        fr[c[i]]++;
+        c_fr.pb(fr[c[i]]);
+    }
+    dbg(c_fr);
+    while(q--){
+        ll l,r;
+        cin >> l >> r;
+        ll lenofarr = r - l +1;
+        ll maxallowedfr = lenofarr/2;
+        dbg(maxallowedfr);
+        map<ll, vll> tmp;
 
-  //brite force of product then divide is not feasible
-  //in worst case the macx value of product can be 1e4 raised to power of 2e5 which is impractical and also we need to consider negatives, so compute in reverse fashion
-
-  ll l = 0, r = n-1;
-  //find the last index to be deleted, go till 2nd last
-  fori(0,n-1){
-    if(s[i] == 'L') l++;
-    else r--;
-  }
-  assert(l==r);
-  ll start = l;
-  vll ans(n);
-  ans[n-1] = a[start] % m;
-  //l and r now expand in reversed fashion from default value start
-  rfor(i, n-2, -1){
-    ll ele;
-    if(s[i] == 'R') ele = a[++r];
-    else ele = a[--l];
-    ans[i] = (ans[i+1] * ele) % m;
-  }
-
-  assert(l==0 && r==n-1);
-  print(ans);
-
-  
+        bool possible = true;
+        fori(l-1, r){
+            tmp[c[i]].pb(c_fr[i]);
+        }
+        for(auto it : tmp){
+            dbg(it.first, it.second);
+                ll maxcnt = it.second[it.second.size()-1] - it.second[0] + 1;
+                if(maxcnt > maxallowedfr){
+                    possible = false;
+                    break;
+                }
+        }
+        /* fori(l-1,r){ */
+        /* fr[c[i]]++; */
+        /* if(fr[c[i]] > maxallowedfr){ */
+        /* possible = false; */
+        /* break; */
+        /* } */
+        /* } */
+        /* //reset fr */
+        /* fori(l-1,r){ */
+        /* if(fr[c[i]] > 0) fr[c[i]] = 0; */
+        /* } */
+        if(possible) yes;
+        else no;
+    }
 }
 
 int main(){
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL); cout.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
 
-  int t = 1;//if test case is 1 only please comment out cin statement below
-  cin >> t;
-  auto t1 = std::chrono::high_resolution_clock::now();
-  int temp = t;
-  while(t--){
+    int t = 1;//if test case is 1 only please comment out cin statement below
+    cin >> t;
+    auto t1 = std::chrono::high_resolution_clock::now();
+    int temp = t;
+    while(t--){
 #ifndef ONLINE_JUDGE
-    cout << "_____ TEST CASE #" << temp-t << " _____" << endl;
+        cout << "_____ TEST CASE #" << temp-t << " _____" << endl;
 #endif
-    test();
-  }
-  auto t2 = std::chrono::high_resolution_clock::now();
+        test();
+    }
+    auto t2 = std::chrono::high_resolution_clock::now();
 
 #ifndef ONLINE_JUDGE
-  std::chrono::duration<double, std::milli> ms_double = t2 - t1;
-  cout << ms_double.count() << "ms\n";
+    std::chrono::duration<double, std::milli> ms_double = t2 - t1;
+    cout << ms_double.count() << "ms\n";
 #endif
-  return 0;
+    return 0;
 }
 
 

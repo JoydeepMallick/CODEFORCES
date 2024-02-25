@@ -127,37 +127,40 @@ const ld PI = 3.141592653589793238462;
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-  ll n, m;string s;
-  cin >> n >> m;
-  vll a(n); 
+  ll n,k;
+  cin >> n >> k;
+  vll a(n), x(n); 
   read(a);
-  cin >> s;
+  read(x);
 
-  //brite force of product then divide is not feasible
-  //in worst case the macx value of product can be 1e4 raised to power of 2e5 which is impractical and also we need to consider negatives, so compute in reverse fashion
-
-  ll l = 0, r = n-1;
-  //find the last index to be deleted, go till 2nd last
-  fori(0,n-1){
-    if(s[i] == 'L') l++;
-    else r--;
+  ll leftweakmon = 0, rightweakmon = 0, leftstrongmon = 0, rightstrongmon = 0;
+  fori(0,n){
+      if(a[i] < abs(x[i])) {
+        if(x[i] < 0) leftweakmon++;
+        else rightweakmon++;
+      }
+      else{
+        ll val = (a[i] - abs(x[i]) + 1);
+        if(x[i] < 0) leftstrongmon += val;
+        else rightstrongmon += val;
+      }
   }
-  assert(l==r);
-  ll start = l;
-  vll ans(n);
-  ans[n-1] = a[start] % m;
-  //l and r now expand in reversed fashion from default value start
-  rfor(i, n-2, -1){
-    ll ele;
-    if(s[i] == 'R') ele = a[++r];
-    else ele = a[--l];
-    ans[i] = (ans[i+1] * ele) % m;
-  }
+    dbg(leftweakmon, rightweakmon, leftstrongmon, rightstrongmon, k);
 
-  assert(l==0 && r==n-1);
-  print(ans);
+    ll leftbullets = 0, rightbullets = 0;
+    if(leftweakmon > 1) leftweakmon--;
+    if(rightweakmon > 1) rightweakmon--;
 
-  
+    if(leftstrongmon >= 3) leftstrongmon--;
+    if(rightstrongmon >= 3) rightstrongmon--;
+
+    leftbullets = leftstrongmon + leftweakmon;
+    rightbullets = rightstrongmon + rightweakmon;
+
+    dbg(leftbullets, rightbullets);
+    if(leftbullets + rightbullets <= k) yes;
+    else no;
+
 }
 
 int main(){
