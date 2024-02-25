@@ -154,24 +154,27 @@ void test(){
     remaining = remaining - lvlsize;
   }
 
+  dbg(levelsizes);
   // hence it k <= no of elements in first level just print kth odd element i.e. 2k-1 
-  // for remaining possible levels its always of the form 2 ^ (level) * some jth odd element of first level. Now we need to determine j and this can be done using prefix sum of number of elements in each level and then finding that value from prefix sum which is greater than equal to k and then j = prefix value - k.
+  // for remaining possible levels its always of the form 2 ^ (level) * some jth odd element of first level. Now we need to determine j and this can be done using prefix sum of number of elements in each level and then
+  // finding that value from prefix sum which is less equal k and then j = k - prefix value of previous .
   vll prefsum(levelsizes.size());
   prefsum[0] = levelsizes[0];
   if(k <= levelsizes[0]){
     cout << 2*k -1 << endl;
     return;
   }
-  int ind = -1, lvl = -1;
+  ll ind = -1, lvl = -1;
   fori(1, levelsizes.size()){
     prefsum[i] = prefsum[i-1] + levelsizes[i];
-    if(k <= prefsum[i]){
-      ind = prefsum[i] - k;
+    if(k <= prefsum[i]){ // if k lies in this level
+      ind = k - prefsum[i-1];// from all elements in this level which position does it lie in
       lvl = i;
       break;
     }
   }
-  cout << powl(2, lvl) * (2*lvl - 1) << endl;
+  assert(ind != -1 && lvl != -1);
+  cout << (ll)powl(2, lvl) * (2*ind - 1) << endl;
 
   
 
