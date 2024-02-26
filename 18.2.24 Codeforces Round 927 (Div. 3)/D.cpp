@@ -144,11 +144,11 @@ void test(){
   int rem = 0;
   vector<string> extra;
 
-  for(auto it : fr){
-    char c = it.first;
+  for(char c : {'C', 'S', 'H', 'D'}){
+    sort(fr[c].begin(), fr[c].end(), greater<ll>());
     if(c == trump) continue;
-    vector<char> v = it.second;
-/* dbg(v); */
+    vector<char> v = fr[c];
+    dbg(v);
     rem += v.size()%2;
     
     if(v.size()%2 == 1){
@@ -185,7 +185,7 @@ void test(){
     else{
       vector<char> tv = fr[trump];
       int indtv = 0;
-      
+      // non trump and trump card
       for(auto c : extra){
         ans += c;
         ans += " ";
@@ -195,13 +195,15 @@ void test(){
         ans += t;
         ans += "\n";
       }
-
+      //trump vs trump
       while(indtv < tv.size()){
-        ans += tv[indtv++];
+        //since its sorted in decending order we will insert it like this 
+        ans += tv[indtv+1];
         ans += trump;
         ans += " ";
-        ans += tv[indtv++];
+        ans += tv[indtv];
         ans += trump;
+        indtv += 2;
         ans += "\n";
       }
 
