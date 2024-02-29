@@ -1,8 +1,8 @@
 /*
    _________________________
    | Written by silent_Joy |
-     ---------~u~---------  
-*/
+   ---------~u~---------  
+   */
 
 #include"bits/stdc++.h"
 #pragma GCC optimize("O3,unroll-loops")
@@ -15,7 +15,7 @@ using namespace std;
 using ll = long long; // -2^63 to 2^63 - 1
 using ull = unsigned long long; // 0 to 2^64 - 1
 using ld = long double; // 12 bytes (12*8 bits)
-//vector macro
+                        //vector macro
 using vll = vector<ll>;
 using vvll = vector< vector<ll> >;
 using vpll = vector<pair<ll,ll>>;
@@ -132,41 +132,56 @@ void test(){
   vll a(n); 
   read(a);
 
-  vll pref(n);
-  pref[0] = a[0];
-  fori(1,n){
-    pref[i] = pref[i-1] + a[i];
+  vll pref(n+1 ,0);
+  fori(1,n+1){
+    pref[i] = pref[i-1] + a[i-1];
   }
-  
   ll q;
   cin >> q;
   while(q--){
-    ll l,u, maxs = LONG_MIN, r = -1;
+    ll l,u, maxs = LONG_MIN, r;
     cin >> l >> u;
-    fori(l-1, n){
+    fori(l, n+1){
       ll cnt = 0;
-      if(i > 0) cnt = pref[i] - pref[i-1];
-      else cnt = pref[i];
+      cnt = pref[i] - pref[l-1];
       ll decre = cnt * (cnt-1)/2;
       ll val = u * cnt - decre;
       maxs = max(maxs, val);
     }
 
-    dbg(maxs);
-    fori(l-1,n){
-      ll cnt = 0;
-      if(i > 0) cnt = pref[i] - pref[i-1];
-      else cnt = pref[i];
-      ll decre = cnt * (cnt-1)/2;
-      ll val = u*cnt - decre;
+/* fori(l, n+1){ */
+/* ll cnt = 0; */
+/* cnt = pref[i] - pref[l-1]; */
+/* ll decre = cnt * (cnt-1)/2; */
+/* ll val = u*cnt - decre; */
+/* if(val == maxs){ */
+/* r = i ; */
+/* break; */
+/* } */
+/* } */
+    //binary search for r 
+    ll lb = l, rb = n; 
+    while(lb <= rb){
+      r = lb + (rb-lb)/2;
+      ll cnt = pref[r] - pref[l-1];
+      ll decre = cnt * (cnt - 1)/2;
+      ll val = u * cnt - decre;
       if(val == maxs){
-        r = i+1 ;
         break;
+      }
+      else if(val > maxs){
+        //go left 
+        rb = r;
+      }
+      else{
+        //go right 
+        lb = r;
       }
     }
     cout << r << " ";
 
   }
+
 
   cout << endl;
 
