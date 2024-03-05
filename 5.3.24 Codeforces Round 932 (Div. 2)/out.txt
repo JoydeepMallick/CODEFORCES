@@ -1,0 +1,11 @@
+_____ TEST CASE #1 _____
+cpm
+_____ TEST CASE #2 _____
+birggrib
+_____ TEST CASE #3 _____
+kupitimilablodarbuz
+_____ TEST CASE #4 _____
+arabypaccapybara
+_____ TEST CASE #5 _____
+abacaba
+7.6486ms
