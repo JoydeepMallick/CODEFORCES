@@ -1,9 +1,9 @@
 _____ TEST CASE #1 _____
-YES
+6
 _____ TEST CASE #2 _____
-YES
+4
 _____ TEST CASE #3 _____
-NO
+10
 _____ TEST CASE #4 _____
-YES
-38.0817ms
+0
+0.0308ms
