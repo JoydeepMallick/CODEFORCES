@@ -130,27 +130,27 @@ void test(){
     int n;
     cin >> n;
     int a[200005] = {0};
-/* int runtill = INT_MIN; */
     fori(0,n){
         int ele;cin >> ele;
         a[ele]++;
-/* runtill = max(runtill, ele); */
     }
 
 
-    int ans1, ans2;
-    fori(0,200001){
+    int ans;
+    bool foundsmallest = 0;
+    fori(0,n){//max value of array can go upto n-1 so max mex cant be more than n-1
         if(a[i] == 0){
-            ans1 = i;
+            ans = i;
             break;
         }
         if(a[i] == 1){
-            if(i == 0){
-                //alice takes it 
+            if(!foundsmallest){
+                //alice takes it as she starts first 
+                foundsmallest = true;
                 continue;
             }
             //else bob takes it 
-            ans1 = i;
+            ans = i;
             break;
         }
         else if(a[i] > 1){
@@ -159,18 +159,8 @@ void test(){
         }
     }
     
-    ans2 = INT_MAX;
-    int foundtillnow = 0;
-    fori(0,200001){
-      if(a[i] == 0) continue;
-      if(a[i]) foundtillnow++;
-      if(a[i] <= (foundtillnow-1)){
-        ans2 = i;
-        break;
-      }
-    }
 
-    cout << min(ans1, ans2) << endl;
+    cout << ans << endl;
 
 }
 
