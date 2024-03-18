@@ -1,10 +1,11 @@
 /*
    _________________________
    | Written by silent_Joy |
-   ---------~u~---------  
-   */
+     ---------~u~---------  
+*/
 
 #include"bits/stdc++.h"
+#include <vector>
 #pragma GCC optimize("O3,unroll-loops")
 // #pragma GCC target("bmi,bmi2,lzcnt,popcnt") 
 // #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt") //intel pentium processors released post 2020 support avx2, unfortunately my Pentium 2020M doesn't 
@@ -15,7 +16,7 @@ using namespace std;
 using ll = long long;           // -2^63 to 2^63 - 1
 using ull = unsigned long long; // 0 to 2^64 - 1
 using ld = long double;         // 12 bytes (12*8 bits)
-                                //vector macro
+//vector macro
 using vll = vector<ll>;
 using vvll = vector< vector<ll> >;
 using vpll = vector<pair<ll,ll>>;
@@ -122,70 +123,79 @@ const ll INF=1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/ 
 
+ll f(int r, int c,int ind, vector<string> &a, string &ans, vector<vector<ll>> &dp){
+    ll n = a[0].size();
+    if(r > 1 || c > n-1) return 0;
+    if(r == 1 && c==n-1) return 1;
+    if(dp[r][c] != -1) return dp[r][c];
 
+    if(a[r][c] == ans[ind]){
+        return dp[r][c] = f(r, c+1, ind+1, a, ans, dp) + f(r+1, c, ind+1, a, ans, dp);
+    }
+    else return dp[r][c] = 0;
+
+}
 
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-    int n,m,x;
-    cin >> n >> m >> x;
+  ll n;
+  cin >> n;
+  vector<string> a(2); 
+  read(a);
+    
+  ll cnt = 0;
+  string ans = "";
+    ans += a[0][0];
+  int r = 0,c = 0;
+  while(c < n){
+      if(r == 0 && c < n-1 && a[r][c+1] == a[r+1][c]){
+          ans += a[r][c+1];
+          c++;
+      }
+      else{
+          if(r==0 && c < n-1 && a[r][c+1] == '0'){
+            ans += '0';
+            c++;
+          }
+          else if(r==0 && c < n && a[r+1][c] == '0'){
+              ans += '0';
+              r++;
+          }
+          else if(r==1){
+              ans += a[r][c+1];
+              c++;
+          }
+      }
+  }
+  vector<vector<ll>> dp(2,vector<ll>(n, -1));
+  cnt = f(0,0,0, a, ans,dp);
+  cout << ans << "\n" << cnt << endl;
 
-    vector<int> curx(n+1, 0);
-    curx[x] = 1;
 
-    while(m--){
-        int r;
-        char c;
-        cin >> r >> c;
-        int nxt;
-        vector<int> tmp(n+1, 0);
-        fori(1, n+1){
-            if(curx[i] == 0) continue;
-            if(c != '0'){ // when  c = 1 or ?
-                nxt = (i + (n-r));
-                if(nxt > n) nxt %= n;
-                tmp[nxt] = 1;
-            }
-            if(c != '1'){ // when c = 0 or ?
-                nxt = (i + r);
-                if(nxt > n) nxt %= n;
-                tmp[nxt] = 1;
-            }
-        }
-
-        curx = tmp;
-        dbg(r,c,curx);
-    }
-    cout << count(all(curx), 1) << endl;
-    vector<int> ans;
-    fori(1, n+1){
-        if(curx[i] == 0) continue;
-        cout << i << " ";
-    }
-    cout << "\n";
 }
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL); cout.tie(NULL);
 
-    int t = 1;//if test case is 1 only please comment out cin statement below
-    cin >> t;
-    auto t1 = std::chrono::high_resolution_clock::now();
-    int temp = t;
-    while(t--){
+  int t = 1;//if test case is 1 only please comment out cin statement below
+  cin >> t;
+  auto t1 = std::chrono::high_resolution_clock::now();
+  int temp = t;
+  while(t--){
 #ifndef ONLINE_JUDGE
-        cout << "_____ TEST CASE #" << temp-t << " _____" << endl;
+    cout << "_____ TEST CASE #" << temp-t << " _____" << endl;
 #endif
-        test();
-    }
-    auto t2 = std::chrono::high_resolution_clock::now();
+    test();
+  }
+  auto t2 = std::chrono::high_resolution_clock::now();
 
 #ifndef ONLINE_JUDGE
-    std::chrono::duration<double, std::milli> ms_double = t2 - t1;
-    cout << ms_double.count() << "ms\n";
+  std::chrono::duration<double, std::milli> ms_double = t2 - t1;
+  cout << ms_double.count() << "ms\n";
 #endif
-    return 0;
+  return 0;
 }
 
 

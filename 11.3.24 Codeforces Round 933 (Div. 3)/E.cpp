@@ -1,8 +1,8 @@
 /*
    _________________________
    | Written by silent_Joy |
-   ---------~u~---------  
-   */
+     ---------~u~---------  
+*/
 
 #include"bits/stdc++.h"
 #pragma GCC optimize("O3,unroll-loops")
@@ -15,7 +15,7 @@ using namespace std;
 using ll = long long;           // -2^63 to 2^63 - 1
 using ull = unsigned long long; // 0 to 2^64 - 1
 using ld = long double;         // 12 bytes (12*8 bits)
-                                //vector macro
+//vector macro
 using vll = vector<ll>;
 using vvll = vector< vector<ll> >;
 using vpll = vector<pair<ll,ll>>;
@@ -127,65 +127,66 @@ const ld PI = 3.141592653589793238462;
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-    int n,m,x;
-    cin >> n >> m >> x;
+  ll n,m,k,d;
+  cin >> n >> m >> k >> d;
+  vll row(n); 
+  fori(0,n){
+      vll col(m);
+      read(col);
+      vll dp(m, 0);
+      multiset<ll> mst = {1}; // start from one side of land 0+1
+      dp[0] = 1;
 
-    vector<int> curx(n+1, 0);
-    curx[x] = 1;
+      dbg(col, dp);
+     forj(1, m-1){// skip the last land block
+          dp[j] = *mst.begin() + (col[j] + 1); // if distance between bridge was j-1 
+          if((j-1-d) >= 0){
+              //not allowed
+              mst.erase(mst.find(dp[j-d-1]));
+          }
+          mst.insert(dp[j]);
+      }
+      
+      dp[m-1] = 1 + *mst.begin();
+      row[i] = dp[m-1];
+  }
 
-    while(m--){
-        int r;
-        char c;
-        cin >> r >> c;
-        int nxt;
-        vector<int> tmp(n+1, 0);
-        fori(1, n+1){
-            if(curx[i] == 0) continue;
-            if(c != '0'){ // when  c = 1 or ?
-                nxt = (i + (n-r));
-                if(nxt > n) nxt %= n;
-                tmp[nxt] = 1;
-            }
-            if(c != '1'){ // when c = 0 or ?
-                nxt = (i + r);
-                if(nxt > n) nxt %= n;
-                tmp[nxt] = 1;
-            }
-        }
+  //sliding window to find min val 
+  ll cur = 0;
+  fori(0,k){
+      cur += row[i];
+  }
+   ll mn = cur;
+   fori(k, n){
+       cur = cur - row[i-k] + row[i];
+       mn = min(cur, mn);
+   }
 
-        curx = tmp;
-        dbg(r,c,curx);
-    }
-    cout << count(all(curx), 1) << endl;
-    vector<int> ans;
-    fori(1, n+1){
-        if(curx[i] == 0) continue;
-        cout << i << " ";
-    }
-    cout << "\n";
+   cout << mn << endl;
+
 }
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL); cout.tie(NULL);
 
-    int t = 1;//if test case is 1 only please comment out cin statement below
-    cin >> t;
-    auto t1 = std::chrono::high_resolution_clock::now();
-    int temp = t;
-    while(t--){
+  int t = 1;//if test case is 1 only please comment out cin statement below
+  cin >> t;
+  auto t1 = std::chrono::high_resolution_clock::now();
+  int temp = t;
+  while(t--){
 #ifndef ONLINE_JUDGE
-        cout << "_____ TEST CASE #" << temp-t << " _____" << endl;
+    cout << "_____ TEST CASE #" << temp-t << " _____" << endl;
 #endif
-        test();
-    }
-    auto t2 = std::chrono::high_resolution_clock::now();
+    test();
+  }
+  auto t2 = std::chrono::high_resolution_clock::now();
 
 #ifndef ONLINE_JUDGE
-    std::chrono::duration<double, std::milli> ms_double = t2 - t1;
-    cout << ms_double.count() << "ms\n";
+  std::chrono::duration<double, std::milli> ms_double = t2 - t1;
+  cout << ms_double.count() << "ms\n";
 #endif
-    return 0;
+  return 0;
 }
 
 

@@ -139,30 +139,49 @@ void test(){
         cin >> r >> c;
         int nxt;
         vector<int> tmp(n+1, 0);
-        fori(1, n+1){
-            if(curx[i] == 0) continue;
-            if(c != '0'){ // when  c = 1 or ?
-                nxt = (i + (n-r));
-                if(nxt > n) nxt %= n;
+        if(c == '0'){
+            fori(1, n+1){
+                if(curx[i] == 0) continue;
+                nxt = (i + r);
+                if(nxt > n) nxt = nxt%n;
                 tmp[nxt] = 1;
             }
-            if(c != '1'){ // when c = 0 or ?
-                nxt = (i + r);
-                if(nxt > n) nxt %= n;
+
+        }
+        else if(c == '1'){
+            fori(1, n+1){
+                if(curx[i] == 0) continue;
+                nxt = (i + (n-r));
+                if(nxt > n) nxt = nxt%n;
                 tmp[nxt] = 1;
             }
         }
-
+        else{
+            fori(1, n+1){
+                if(curx[i] == 0) continue;
+                //clockwise
+                int nxt1 = (i + r);
+                if(nxt1 > n) nxt1 = nxt1%n;
+                tmp[nxt1] = 1;
+                //anticlockwise
+                int nxt2 = (i + (n-r));
+                if(nxt2 > n) nxt2 = nxt2%n;
+                tmp[nxt2] = 1;
+                dbg(nxt1, nxt2); 
+            }
+        }
         curx = tmp;
         dbg(r,c,curx);
     }
-    cout << count(all(curx), 1) << endl;
     vector<int> ans;
     fori(1, n+1){
         if(curx[i] == 0) continue;
-        cout << i << " ";
+        ans.pb(i);
     }
-    cout << "\n";
+
+    cout << ans.size() << endl;
+    print(ans);
+
 }
 
 int main(){

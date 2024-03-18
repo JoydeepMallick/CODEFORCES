@@ -1,8 +1,8 @@
 /*
    _________________________
    | Written by silent_Joy |
-     ---------~u~---------  
-*/
+   ---------~u~---------  
+   */
 
 #include"bits/stdc++.h"
 #pragma GCC optimize("O3,unroll-loops")
@@ -15,7 +15,7 @@ using namespace std;
 using ll = long long;           // -2^63 to 2^63 - 1
 using ull = unsigned long long; // 0 to 2^64 - 1
 using ld = long double;         // 12 bytes (12*8 bits)
-//vector macro
+                                //vector macro
 using vll = vector<ll>;
 using vvll = vector< vector<ll> >;
 using vpll = vector<pair<ll,ll>>;
@@ -127,25 +127,40 @@ const ld PI = 3.141592653589793238462;
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-  ll n;
+  int n;
   cin >> n;
-  vll a(n); 
+  int a(n); 
   read(a);
   bool zeroexist=false;  
+  int exist[10005] = {0};
   fori(0,n){
-      if(a[i] == 0) {
-        zeroexist = true;
-        break;
-      }
+    if(a[i] == 0) {
+      zeroexist = true;
     }
-    
+    exist[a[i]] = 1;
+  }
+  int maxele = MAX(a);
+
   if(zeroexist == false){
-      fori(1,n+1){
-          cout << i << " " << i << endl;
-      }
+    cout << n<< endl;  
+    fori(1,n+1){
+      cout << i << " " << i << endl;
+    }
   }
   else{
+    int possible = 1, minmiss = -1;
+    fori(0, maxele+1){
+      possible &= exist[i];
+      if(!exist[i] && minmiss == -1) minmiss = i;
+    }
+  }
+  if(possible){
+    cout << 2 << endl;
+    int i = 0;
 
+  }
+  else{
+    cout << -1 << endl;
   }
 }
 
