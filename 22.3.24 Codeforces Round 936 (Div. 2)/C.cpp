@@ -197,6 +197,30 @@ const ll INF = 1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/
 
+int dfs(int u, int v, vector<vector<int>> &adj, int &mid, int &ans) {
+  int res = 1;
+  for (int child : adj[u]) {
+    if (child == v)
+      continue; // skip edge between  u and v
+    res += dfs(child, u, adj, mid, ans);
+  }
+  if (res >= mid) {
+    ans++;
+    return 0;
+  } else {
+    return res;
+  }
+}
+
+bool check(int k, vector<vector<int>> &adj, int &mid) {
+  int ans = 0;
+  dfs(1, -1, adj, mid, ans);
+  if (ans >= (k - 1))
+    return true;
+  else
+    return false;
+}
+
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE
  * BELOW____________________________________*/
 
@@ -204,29 +228,23 @@ void test() {
   int n, k;
   cin >> n >> k;
 
-  vector<pair<int, int>> edges;
-  vector<int> graph(100005, -1);
+  vector<vector<int>> graph(n + 1); // adjacency list
   fori(0, n - 1) {
     int v, u;
     cin >> v >> u;
-    graph[u] = v;
-    graph[v] = u;
-    edges.pb({u, v});
+    graph[u].push_back(v);
+    graph[v].push_back(u);
   }
-
-  for(auto it : edges){
-    //delete edges and count length of each component
-    int u = it.first;
-    int v = it.second;
-
-    graph[u] = -1;
-    graph[v] = -1;
-    
-
-
-    graph[u] = v;
-    graph[v] = u;
+  int lo = 1, hi = n;
+  while (lo < hi) {
+    int mid = (lo + hi) / 2;
+    if (check(k, graph, mid)) {
+      lo = mid;
+    } else {
+      hi = mid;
+    }
   }
+  cout << hi << endl;
 }
 
 int main() {
