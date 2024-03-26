@@ -1,15 +1,17 @@
 _____ TEST CASE #1 _____
-2
+4
 _____ TEST CASE #2 _____
 0
 _____ TEST CASE #3 _____
-1
+2
 _____ TEST CASE #4 _____
-3
-_____ TEST CASE #5 _____
-5
-_____ TEST CASE #6 _____
-7
-_____ TEST CASE #7 _____
 0
-50.2631ms
+_____ TEST CASE #5 _____
+1
+_____ TEST CASE #6 _____
+2
+_____ TEST CASE #7 _____
+6
+_____ TEST CASE #8 _____
+7
+0.0598ms
