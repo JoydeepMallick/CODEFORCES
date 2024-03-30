@@ -199,16 +199,35 @@ const ld PI = 3.141592653589793238462;
  * BELOW____________________________________*/
 
 void test() {
-  int h, m;
-  char colon;
-  cin >> h >> colon >> m;
+  ll n, q;
+  cin >> n >> q;
+  vll a(n);
+  read(a);
+  /* cout.precision(7); */
 
-  string ampm = (h < 12) ? " AM" : " PM";
-  h = (h > 11 ? h - 12 : h);
-  h = (h % 12 ? h : 12);
-
-  cout << (h < 10 ? "0" : "") << h << colon << (m < 10 ? "0" : "") << m << ampm
-       << endl;
+  vector<long double> f(n, 0);
+  f[0] = sqrtl(a[0]);
+  fori(1, n) {
+    long double val = f[i - 1] + a[i];
+    f[i] = sqrtl(val);
+  }
+  /* dbg(f); */
+  while (q--) {
+    ll k, x;
+    cin >> k >> x;
+    a[k - 1] = x;
+    // f needs to be updated from k-1 till n
+    fori(k - 1, n) {
+      long double val;
+      if (i == 0)
+        val = a[i];
+      else
+        val = f[i - 1] + a[i];
+      f[i] = sqrtl(val);
+    }
+    /* dbg(f); */
+    cout << fixed << (ll)floorl(f[n - 1]) << endl;
+  }
 }
 
 int main() {
@@ -217,7 +236,7 @@ int main() {
   cout.tie(NULL);
 
   int t = 1; // if test case is 1 only please comment out cin statement below
-  cin >> t;
+  /* cin >> t; */
   auto t1 = std::chrono::high_resolution_clock::now();
   int temp = t;
   while (t--) {

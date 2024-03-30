@@ -199,16 +199,19 @@ const ld PI = 3.141592653589793238462;
  * BELOW____________________________________*/
 
 void test() {
-  int h, m;
-  char colon;
-  cin >> h >> colon >> m;
+  ll n;
+  cin >> n;
+  vll a(n);
+  read(a);
+  vll ans(n, 0);
+  ans[n - 1] = n - a[n - 1]; // mex of entire permutation is n
+  ll curmex = ans[n - 1];
 
-  string ampm = (h < 12) ? " AM" : " PM";
-  h = (h > 11 ? h - 12 : h);
-  h = (h % 12 ? h : 12);
-
-  cout << (h < 10 ? "0" : "") << h << colon << (m < 10 ? "0" : "") << m << ampm
-       << endl;
+  rfor(i, n - 2, -1) {
+    ans[i] = curmex - a[i];
+    curmex = min(curmex, ans[i]);
+  }
+  print(ans);
 }
 
 int main() {

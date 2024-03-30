@@ -199,16 +199,51 @@ const ld PI = 3.141592653589793238462;
  * BELOW____________________________________*/
 
 void test() {
-  int h, m;
-  char colon;
-  cin >> h >> colon >> m;
+  ll n, x, y;
+  cin >> n >> x >> y;
+  vll a(n + 1, 0), cnt(n + 1, 0), b(x);
+  fori(0, x) {
+    ll ele;
+    cin >> ele;
+    a[ele] = 1;
+    b[i] = ele;
+  }
 
-  string ampm = (h < 12) ? " AM" : " PM";
-  h = (h > 11 ? h - 12 : h);
-  h = (h % 12 ? h : 12);
+  if (x + y >= n) {
+    cout << n - 2 << endl;
+    return;
+  }
 
-  cout << (h < 10 ? "0" : "") << h << colon << (m < 10 ? "0" : "") << m << ampm
-       << endl;
+  ll ind = 0;
+  while (ind < x) {
+    ll ele = b[ind];
+    fori(0, n - 3) {
+      ll toadd = n - 2 - i;
+      ll nextval = ele + (ll)pow(-1, i) * toadd;
+      if (nextval < 1) {
+        if (cnt[ele] == 0)
+          continue;
+        else
+          break;
+      } else if (a[nextval % n]) {
+        cnt[ele]++;
+        ele = nextval % n;
+      } else {
+        if (cnt[ele] == 0)
+          continue;
+        else
+          break;
+      }
+    }
+    ind++;
+  }
+  dbg(cnt);
+  ll maxpos = MAX(cnt);
+  assert(maxpos <= n - 2);
+  if (y >= n - 2 - maxpos) {
+    cout << n - 2 << endl;
+  } else
+    cout << maxpos << endl;
 }
 
 int main() {

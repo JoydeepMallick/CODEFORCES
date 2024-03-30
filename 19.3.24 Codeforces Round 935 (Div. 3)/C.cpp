@@ -204,13 +204,31 @@ void test() {
   string s;
   cin >> s;
   // store in 1 based array and prefix sum it assume left = 1 and right = 0
-  vll prefL(n + 1, 0), prefR(n+1, 0);
-  fori(1, n + 1) { prefL[i] = prefL[i - 1] + ((s[i] == '0') ? 1 : 0); }
+  vll prefR(n + 1, 0);
+  fori(1, n + 1) { prefR[i] = prefR[i - 1] + s[i - 1] - '0'; }
+  dbg(prefR);
 
-  dbg(pref);
-  fori(1,n+1){
-    
+  vector<pll> ans;
+  fori(0, n + 1) {
+    ll leftones = prefR[i], rightones = prefR[n] - prefR[i];
+    if (leftones <= floorl(i / 2.0) && rightones >= ceill((n - i) / 2.0)) {
+      ll diff = n / 2 - i;
+      ans.push_back({abs(diff), i});
+    }
   }
+  dbg(ans);
+
+  ll mindiff = LONG_MAX;
+  for (auto it : ans) {
+    mindiff = min(mindiff, it.first);
+  }
+  ll minans = LONG_MAX;
+  for (auto it : ans) {
+    if (it.first != mindiff)
+      continue;
+    minans = min(it.second, minans);
+  }
+  cout << minans << endl;
 }
 
 int main() {

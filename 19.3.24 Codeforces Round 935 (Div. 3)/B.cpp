@@ -206,8 +206,8 @@ void test() {
   ll ans = 2;
 
   ll start = a * b, end = start + t;
-/* ans += end / a - start / a + end / b - start / b; */
-  ans += (t/a + t/b);
+  /* ans += end / a - start / a + end / b - start / b; */
+  ans += (t / a + t / b);
   cout << ans << endl;
 }
 

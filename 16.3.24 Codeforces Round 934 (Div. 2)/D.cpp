@@ -199,16 +199,35 @@ const ld PI = 3.141592653589793238462;
  * BELOW____________________________________*/
 
 void test() {
-  int h, m;
-  char colon;
-  cin >> h >> colon >> m;
+  int n, q;
+  cin >> n >> q;
+  string s;
+  /*
+ Observations ;-
 
-  string ampm = (h < 12) ? " AM" : " PM";
-  h = (h > 11 ? h - 12 : h);
-  h = (h % 12 ? h : 12);
+ if substring s[i...j] and s[i+1...j+1] are both palindrome
 
-  cout << (h < 10 ? "0" : "") << h << colon << (m < 10 ? "0" : "") << m << ampm
-       << endl;
+ 2 possiblities if k = odd :  s = abab, k = 3 then substrings  aba and bab
+                              s = ababab k = 5 then substrings ababa and babab
+ (alternating characters i.e. 2 possible characters in alternate always) Nothing
+ else is possible
+
+               if k = even :  s = aaa  k = 2 then  substrings aa, aa
+                              (all elements need to be equal else both
+ substrings can never be palindromes) Check the conditions for palindrome
+ confirm. si=sj, sj=si+2, si+2=sj−2, so on
+
+ If k = 1 all strings are always palindrome
+ If k = n, the answer will depend if entire string is palindrome or not
+ else for k = odd, we need to find if substring of length (k+1) which does not
+ contain alternating sequence else if k = even, we need to find if
+
+   */
+  cin >> s;
+  while (q--) {
+    int l, r;
+    cin >> l >> r;
+  }
 }
 
 int main() {
