@@ -229,7 +229,7 @@ void test() {
     yes;
     return;
   }
-/* dbg(bindec.size()); */
+  /* dbg(bindec.size()); */
   ll cur = n;
   ll ind = bindec.size() - 1;
   while (ind != 1) {

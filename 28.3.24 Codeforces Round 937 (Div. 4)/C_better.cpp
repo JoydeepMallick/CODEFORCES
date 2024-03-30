@@ -199,19 +199,16 @@ const ld PI = 3.141592653589793238462;
  * BELOW____________________________________*/
 
 void test() {
-  int n, till;
-  cin >> n;
+  int h, m;
+  char colon;
+  cin >> h >> colon >> m;
 
-  till = 2 * n;
-  fori(0, till) {
-    forj(0, till) {
-      if ((i / 2 + j / 2) & 1)
-        cout << ".";
-      else
-        cout << "#";
-    }
-    cout << "\n";
-  }
+  string ampm = (h < 12) ? " AM" : " PM";
+  h = (h>11 ? h-12 : h);
+  h = (h % 12 ? h : 12);
+
+  cout << (h < 10 ? "0" : "") << h << colon << (m < 10 ? "0" : "") << m << ampm
+       << endl;
 }
 
 int main() {

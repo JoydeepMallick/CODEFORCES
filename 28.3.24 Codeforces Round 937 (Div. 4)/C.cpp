@@ -209,8 +209,7 @@ void test() {
   if (hr < 12) {
     if (hr == 0)
       fr = "12";
-    else
-    {
+    else {
       fr += s[0];
       fr += s[1];
     }
