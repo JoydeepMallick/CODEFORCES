@@ -195,28 +195,54 @@ const ll INF = 1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/
 
+// we know everything is ascending order
+char mincostdir(ll ind, vll &a) {
+  // edge case when ind is 0 no left hence lets make it INF
+  ll leftD = (ind == 0 ? INF : a[ind] - a[ind - 1]);
+  // edge case when ind is n-1 no right hence lets make it INF
+  ll rightD = (ind == (a.size() - 1) ? INF : a[ind + 1] - a[ind]);
+  if (leftD < rightD)
+    return 'L'; // this movement will cost 1
+  if (rightD < leftD)
+    return 'R'; // this movement will cost 1
+  /* assert(false); */
+}
+
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE
  * BELOW____________________________________*/
 
 void test() {
-  ll n, x, y;
-  cin >> n >> x >> y;
-  vll a(x);
+  ll n, m;
+  cin >> n;
+  vll a(n);
   read(a);
+  cin >> m;
+  vll L(n, 0), R(n, 0);
 
-  // y = 0 always
-  sort(all(a));
-  ll ans = x - 2; // minmum possible answer
-  fori(0, x) {
-    // for last element next element will be first one like in cycle
-    ll cur = a[i] - 1; // 0 baed indexing
-    ll nxt = a[(i + 1) % x] - 1;
-
-    if ((cur + 2) % n == nxt)
-      ans++;
+  // left to right 0 till n-1 movement - prefix sum
+  fori(1, n) {
+    ll curind = i - 1;
+    R[i] = R[i - 1] + (mincostdir(curind, a) == 'R' ? 1 : a[i] - a[i - 1]);
   }
+  dbg(L);
+  // right to left n-1 to 0 movement - suffix sum
+  rfor(i, n - 2, -1) {
+    ll curind = i + 1;
+    L[i] = L[i + 1] + (mincostdir(curind, a) == 'L' ? 1 : a[i + 1] - a[i]);
+  }
+  dbg(R);
+  while (m--) {
+    ll x, y;
+    cin >> x >> y;
+    x--, y--;
 
-  cout << ans << endl;
+    if (x < y) {
+      // left to right
+      cout << R[y] - R[x] << endl;
+    } else {
+      cout << L[y] - L[x] << endl;
+    }
+  }
 }
 
 int main() {
