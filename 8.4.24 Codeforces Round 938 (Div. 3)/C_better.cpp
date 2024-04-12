@@ -5,6 +5,7 @@
 */
 
 #include "bits/stdc++.h"
+#include <deque>
 #pragma GCC optimize("O3,unroll-loops")
 // #pragma GCC target("bmi,bmi2,lzcnt,popcnt")
 // #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt") //intel pentium processors
@@ -73,7 +74,21 @@ ull lcm(ull x, ull y) {
 template <class T> bool umin(T &a, T b) { return a > b ? (a = b, 1) : 0; }
 // This is similar to umin, but updates a to be the maximum of the two values.
 template <class T> bool umax(T &a, T b) { return a < b ? (a = b, 1) : 0; }
-
+// This remove duplicates from array
+template <typename T> void unique(vector<T> &a) {
+  sort(all(a));
+  a.resize(unique(all(a)) - a.begin());
+}
+// This find nCr
+template <typename T> T nCr(T n, T k) {
+  if (n < k) {
+    return 0;
+  }
+  k = min(k, n - k);
+  T ans = 1;
+  ffor(i, 1, k + 1) { ans *= (n - i + 1), ans /= i; }
+  return ans;
+}
 template <typename T> // read an array of values
 void read(vector<T> &v) {
   for (auto &x : v) {
@@ -195,47 +210,39 @@ const ll INF = 1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/
 
-ll vis[1000006] = {0};
-
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE
  * BELOW____________________________________*/
 
 void test() {
-  ll n, m, k;
-  cin >> n >> m >> k;
-  vll a(n), b(m);
-  read(a);
-  read(b);
+  ll n, k;
+  cin >> n >> k;
+  deque<ll> dq(n);
+  for (auto &ele : dq)
+    cin >> ele;
 
-  map<ll, ll> inb;
+  dbg(dq);
 
-  for (auto ele : b)
-    inb[ele] = 1;
-
-  ll ans = 0;
-  ll cnt = 0;
-  fori(0, m) {
-    if (!vis[a[i]] && inb[a[i]] == 1) {
-      cnt++;
-      vis[a[i]] = 1;
+  while (k && dq.size() > 0) {
+    ll mn = min(dq.front(), dq.back());
+    if (2 * mn > k) {
+      dq.front() -= ceill(k / 2.0);
+      dq.back() -= floorl(k / 2.0);
+      k = 0;
+    } else {
+      dq.front() -= mn;
+      dq.back() -= mn;
+      if (dq.size() > 1)
+        k -= 2 * mn;
+      else
+        k -= mn;
     }
+
+    if (dq.front() == 0)
+      dq.pop_front();
+    if (dq.size() && dq.back() == 0)
+      dq.pop_back();
   }
-  if (cnt >= k)
-    ans = 1;
-  fori(m, n - m + 1) {
-    if (!vis[a[i - m]] && inb[a[i - m]] == 1) {
-      cnt--;
-      vis[a[i - m]] = 0;
-    }
-    if (vis[a[i]] == 0 && inb[a[i]] == 1) {
-      cnt++;
-      vis[a[i]] = 1;
-    }
-    if (cnt >= k) {
-      ans++;
-    }
-  }
-
+  ll ans = n - dq.size();
   cout << ans << endl;
 }
 

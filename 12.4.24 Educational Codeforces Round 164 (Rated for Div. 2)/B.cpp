@@ -73,7 +73,16 @@ ull lcm(ull x, ull y) {
 template <class T> bool umin(T &a, T b) { return a > b ? (a = b, 1) : 0; }
 // This is similar to umin, but updates a to be the maximum of the two values.
 template <class T> bool umax(T &a, T b) { return a < b ? (a = b, 1) : 0; }
-
+// This find nCr
+template <typename T> T nCr(T n, T k) {
+  if (n < k) {
+    return 0;
+  }
+  k = min(k, n - k);
+  T ans = 1;
+  ffor(i, 1, k + 1) { ans *= (n - i + 1), ans /= i; }
+  return ans;
+}
 template <typename T> // read an array of values
 void read(vector<T> &v) {
   for (auto &x : v) {
@@ -195,48 +204,30 @@ const ll INF = 1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/
 
-ll vis[1000006] = {0};
-
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE
  * BELOW____________________________________*/
 
 void test() {
-  ll n, m, k;
-  cin >> n >> m >> k;
-  vll a(n), b(m);
+  ll n;
+  cin >> n;
+  vll a(n);
   read(a);
-  read(b);
 
-  map<ll, ll> inb;
-
-  for (auto ele : b)
-    inb[ele] = 1;
-
-  ll ans = 0;
-  ll cnt = 0;
-  fori(0, m) {
-    if (!vis[a[i]] && inb[a[i]] == 1) {
+  ll beauty = a[0], cnt = 0;
+  vll cntarr;
+  fori(0, n) {
+    if (a[i] != beauty && cnt > 0) {
+      cntarr.pb(cnt);
+      cnt = 0;
+    }
+    if (a[i] == beauty)
       cnt++;
-      vis[a[i]] = 1;
-    }
   }
-  if (cnt >= k)
-    ans = 1;
-  fori(m, n - m + 1) {
-    if (!vis[a[i - m]] && inb[a[i - m]] == 1) {
-      cnt--;
-      vis[a[i - m]] = 0;
-    }
-    if (vis[a[i]] == 0 && inb[a[i]] == 1) {
-      cnt++;
-      vis[a[i]] = 1;
-    }
-    if (cnt >= k) {
-      ans++;
-    }
-  }
-
-  cout << ans << endl;
+  if (cnt > 0)
+    cntarr.pb(cnt);
+  dbg(cntarr);
+  ll ans = MIN(cntarr);
+  cout << (ans == n ? -1 : ans) << endl;
 }
 
 int main() {
