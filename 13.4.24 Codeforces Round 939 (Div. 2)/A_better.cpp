@@ -208,35 +208,14 @@ const ld PI = 3.141592653589793238462;
  * BELOW____________________________________*/
 
 void test() {
-  ll n;
-  cin >> n;
-
-  vll perm(n);
-  fori(0, n) { perm[i] = i + 1; }
-  ll s = 0, m = 0;
-
-  /*
-    for 3 ;
-
-    - - -   - - 1   - - 1  - 1 1   - 1 1   1 2 3    1 2 3
-    - - -   - - 2   1 2 3  - 2 3   1 2 3   1 2 3    2 2 3
-    1 2 3   1 2 3   1 2 3  1 3 3   1 3 3   1 3 3    3 3 3
-
-    ie.       fillup from bottom up and right to left in alternate way
-    always 2n steps
-    i.e. 1 2 1 2 .... or  2 1 2 1 ...
-
-   */
-
-  m = 2 * n;
-  fori(1, n + 1) { s += i * (2 * i - 1); }
-  cout << s << " " << m << endl;
-  rfor(i, 2 * n, 0) {
-    ll c = ((i & 1) ? 1 : 2);
-    cout << c << " " << (i + 1) / 2 << " ";
-    print(perm);
+  ll n, k, q;
+  cin >> k >> q;
+  vll a(k);
+  read(a);
+  while (q--) {
+    cin >> n;
+    cout << min(a[0] - 1, n) << endl;
   }
-  cout << endl;
 }
 
 int main() {
