@@ -208,12 +208,13 @@ ll recur(vll &dp, int i) {
   if (i < 0)
     return 0;
   else if (i == 0)
-    return 1; // only 1 possible configurtion as given
-  else if(dp[i] != -1) return dp[i];
+    return dp[0] = 1; // only 1 possible configurtion as given
+  else if (dp[i] != -1)
+    return dp[i];
   // when r == c selected there are 1 such possibilites
   ll pos1 = recur(dp, i - 1) % mod;
   // when r!=c possibilites are i*i - i (remove all the r = c possibilites)
-  ll pos2 = (2*(i-1) * recur(dp, i - 2)) % mod;
+  ll pos2 = (2 * (i - 1) * recur(dp, i - 2)) % mod;
 
   return dp[i] = (pos1 + pos2) % mod; // all possibilites acvcounted
 }
