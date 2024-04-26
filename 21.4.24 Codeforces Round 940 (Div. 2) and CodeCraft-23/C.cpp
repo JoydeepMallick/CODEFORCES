@@ -204,25 +204,37 @@ const ll INF = 1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/
 
+ll recur(vll &dp, int i) {
+  if (i < 0)
+    return 0;
+  else if (i == 0)
+    return 1; // only 1 possible configurtion as given
+  else if(dp[i] != -1) return dp[i];
+  // when r == c selected there are 1 such possibilites
+  ll pos1 = recur(dp, i - 1) % mod;
+  // when r!=c possibilites are i*i - i (remove all the r = c possibilites)
+  ll pos2 = (2*(i-1) * recur(dp, i - 2)) % mod;
+
+  return dp[i] = (pos1 + pos2) % mod; // all possibilites acvcounted
+}
+
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE
  * BELOW____________________________________*/
 
 void test() {
-  int n;
-  cin >> n;
-  vector<int> a(n);
-  read(a);
-  int ans = 0;
-  map<int, int> fr;
-  for (int ele : a)
-    fr[ele]++;
-
-  for (auto it : fr) {
-    ans += it.second / 3;
-    it.second %= 3;
+  ll n, k;
+  cin >> n >> k;
+  ll rem = n;
+  fori(0, k) {
+    ll r, c;
+    cin >> r >> c;
+    rem -= (2 - (r == c));
   }
 
-  cout << ans << endl;
+  vll dp(rem + 1, -1);
+
+  recur(dp, rem);
+  cout << dp[rem] << endl;
 }
 
 int main() {
