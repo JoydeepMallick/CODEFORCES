@@ -222,8 +222,9 @@ void test() {
   // else if one lies in another
   else if ((b[0] > a[0] && b[1] < a[1]) || (a[0] > b[0] && a[1] < b[1]))
     no;
-  //seperate ranges
-  else if((a[1] < b[0]) || (b[1] < a[0])) no;
+  // seperate ranges
+  else if ((a[1] < b[0]) || (b[1] < a[0]))
+    no;
   else
     yes;
 }
