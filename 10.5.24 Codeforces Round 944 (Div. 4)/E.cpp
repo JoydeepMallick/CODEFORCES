@@ -5,7 +5,6 @@
 */
 
 #include "bits/stdc++.h"
-#include <vector>
 #pragma GCC optimize("O3,unroll-loops")
 // #pragma GCC target("bmi,bmi2,lzcnt,popcnt")
 // #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt") //intel pentium processors
@@ -204,65 +203,42 @@ const int inf = 1e9;
 const ll INF = 1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/
-vector<int> ans(1e9 + 5);
-
-void reset() {
-  fori(0, 1e9 + 1) { ans[i] = 0; }
-}
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE
  * BELOW____________________________________*/
 
 void test() {
   int n, k, q;
   cin >> n >> k >> q;
-  vll a(k), b(k);
-  read(a);
-  read(b);
-
-  /* vector<int> ans(n + 1); */
-  /* reset(); */
-
-  /* int prevm = 0, prevt = 0; */
-  /* fori(0, k) { */
-  /* int d = a[i] - prevm; */
-  /* int t = b[i] - prevt; */
-  /* double speed = d / (t * 1.0); */
-  /* dbg(speed); */
-  /* forj(prevm + 1, a[i] + 1) { */
-  /* double dd = j * 1.0 - prevm; */
-  /* double tt = dd / speed; */
-  /* ans[j] = ans[prevm] + floor(tt); */
-  /* } */
-
-  /* prevm = a[i]; */
-  /* prevt = b[i]; */
-  /* } */
-
-  vector<double> speed(k, 0);
-  int prevm = 0, prevt = 0;
-  fori(0, k) {
-    int d = a[i] - prevm;
-    int t = b[i] - prevt;
-    double s = d / (t * 1.0);
-    speed[i] = s;
-
-    prevm = a[i];
-    prevt = b[i];
-  }
-
+  vll a(k + 1), b(k + 1);
+  a[0] = 0;
+  b[0] = 0;
+  fori(1, k + 1) cin >> a[i];
+  fori(1, k + 1) cin >> b[i];
   while (q--) {
-    int d, ind = -1;
+    int d;
     cin >> d;
-    fori(0, k) {
-      if (d <= a[i]) {
-        ind = i;
-        break;
+
+    // binary search
+    int l = 0, r = k;
+    while (l <= r) {
+      int mid = l + (r - l) / 2;
+      if (a[mid] > d) {
+        r = mid - 1;
+      } else {
+        l = mid + 1;
       }
     }
-    double dist = d - a[ind];
-    double tt = dist / speed[ind];
-    int ans = floor(tt) + b[ind];
-    cout << ans << " ";
+    int t = 0, lastvisitedpointind = r;
+    if (a[lastvisitedpointind] == d) {
+      t = b[lastvisitedpointind];
+    } else {
+      int disttotravel = d - a[lastvisitedpointind];
+      double speed =
+          (a[lastvisitedpointind + 1] - a[lastvisitedpointind]) /
+          ((b[lastvisitedpointind + 1] - b[lastvisitedpointind]) * 1.0);
+      t = b[lastvisitedpointind] + floor(disttotravel / speed);
+    }
+    cout << t << " ";
   }
 
   cout << endl;
