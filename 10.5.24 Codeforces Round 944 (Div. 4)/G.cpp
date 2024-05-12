@@ -203,48 +203,32 @@ const int inf = 1e9;
 const ll INF = 1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/
+
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE
  * BELOW____________________________________*/
 
 void test() {
-  int n, k, q;
-  cin >> n >> k >> q;
-  vll a(k + 1), b(k + 1);
-  a[0] = 0;
-  b[0] = 0;
-  fori(1, k + 1) cin >> a[i];
-  fori(1, k + 1) cin >> b[i];
-  while (q--) {
-    int d;
-    cin >> d;
+  ll n;
+  cin >> n;
+  vll a(n);
+  read(a);
 
-    // binary search
-    int l = 0, r = k;
-    while (l <= r) {
-      int mid = l + (r - l) / 2;
-      if (a[mid] > d) {
-        r = mid - 1;
-      } else {
-        l = mid + 1;
-      }
-    }
-    int t = 0, lastvisitedpointind = r;
-    if (a[lastvisitedpointind] == d) {
-      t = b[lastvisitedpointind];
-    } else {
-      int disttotravel = d - a[lastvisitedpointind];
-//avoid doubles strange behavior
-      /* double speed = */
-      /* (a[lastvisitedpointind + 1] - a[lastvisitedpointind]) / */
-      /* ((b[lastvisitedpointind + 1] - b[lastvisitedpointind]) * 1.0); */
-      /* t = floor(b[lastvisitedpointind] + disttotravel / speed); */
-      t = b[lastvisitedpointind] +
-          disttotravel * (b[lastvisitedpointind + 1] - b[lastvisitedpointind]) /
-              (a[lastvisitedpointind + 1] - a[lastvisitedpointind]);
-    }
-    cout << t << " ";
+  // only last 2 bits make the difference rest all bits remain no factor
+  // so sort by groups based on remaining bits
+  // within grp sort on basis of last 2 bits
+  map<int, priority_queue<int, vector<int>, greater<int>>> sortedgrp;
+
+  for (int ele : a) {
+    sortedgrp[ele >> 2].push(ele);
   }
 
+  // note the position of grps in actual array remains unchanged only the
+  // elements in these grps can be sorted.
+
+  for (auto ele : a) {
+    cout << sortedgrp[ele >> 2].top() << " ";
+    sortedgrp[ele >> 2].pop();
+  }
   cout << endl;
 }
 

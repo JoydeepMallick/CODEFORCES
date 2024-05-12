@@ -203,49 +203,30 @@ const int inf = 1e9;
 const ll INF = 1e18;
 const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/
+
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE
  * BELOW____________________________________*/
 
 void test() {
-  int n, k, q;
-  cin >> n >> k >> q;
-  vll a(k + 1), b(k + 1);
-  a[0] = 0;
-  b[0] = 0;
-  fori(1, k + 1) cin >> a[i];
-  fori(1, k + 1) cin >> b[i];
-  while (q--) {
-    int d;
-    cin >> d;
+  int r;
+  cin >> r;
 
-    // binary search
-    int l = 0, r = k;
-    while (l <= r) {
-      int mid = l + (r - l) / 2;
-      if (a[mid] > d) {
-        r = mid - 1;
-      } else {
-        l = mid + 1;
-      }
+  int ans = 0, x = 0, ymax = r;
+  // only check in first quadrant for each x from 0 to r+1 find max y and then
+  // check by susbequent decrease until not possible to satisfy conditions
+  while (x <= r) {
+    while (x * x + ymax * ymax >= (r + 1) * (r + 1))
+      ymax--;
+    int y = ymax;
+    while (x * x + y * y >= r * r) {
+      ans++;
+      y--;
     }
-    int t = 0, lastvisitedpointind = r;
-    if (a[lastvisitedpointind] == d) {
-      t = b[lastvisitedpointind];
-    } else {
-      int disttotravel = d - a[lastvisitedpointind];
-//avoid doubles strange behavior
-      /* double speed = */
-      /* (a[lastvisitedpointind + 1] - a[lastvisitedpointind]) / */
-      /* ((b[lastvisitedpointind + 1] - b[lastvisitedpointind]) * 1.0); */
-      /* t = floor(b[lastvisitedpointind] + disttotravel / speed); */
-      t = b[lastvisitedpointind] +
-          disttotravel * (b[lastvisitedpointind + 1] - b[lastvisitedpointind]) /
-              (a[lastvisitedpointind + 1] - a[lastvisitedpointind]);
-    }
-    cout << t << " ";
+    x++;
   }
 
-  cout << endl;
+  // by symmetry same in all 4 quadrants
+  cout << 4 * ans << endl;
 }
 
 int main() {
