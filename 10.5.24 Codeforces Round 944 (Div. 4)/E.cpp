@@ -233,7 +233,7 @@ void test() {
       t = b[lastvisitedpointind];
     } else {
       int disttotravel = d - a[lastvisitedpointind];
-//avoid doubles strange behavior
+      // avoid doubles strange behavior
       /* double speed = */
       /* (a[lastvisitedpointind + 1] - a[lastvisitedpointind]) / */
       /* ((b[lastvisitedpointind + 1] - b[lastvisitedpointind]) * 1.0); */

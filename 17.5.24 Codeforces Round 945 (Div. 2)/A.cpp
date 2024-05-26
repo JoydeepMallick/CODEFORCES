@@ -212,20 +212,6 @@ void test() {
   cin >> n;
   vll a(n);
   read(a);
-  UNIQUE(a);
-  dbg(a);
-  if(a.size() <= 2){
-    yes;return;
-  }
-  ll ai = a[0], aj = a[1];
-
-  fork(2, n) {
-    if (a[k] % ai != 0 && a[k] % aj != 0) {
-      no;
-      return;
-    }
-  }
-  yes;
 }
 
 int main() {

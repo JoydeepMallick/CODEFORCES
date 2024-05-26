@@ -218,7 +218,7 @@ void test() {
     cin >> r >> c;
     rem -= (2 - (r == c));
   }
-//reclaring array multiple arrays will cost time in iterative mind it boi
+  // reclaring array multiple arrays will cost time in iterative mind it boi
   dp[0] = dp[1] = 1;
   fori(2, rem + 1) {
     ll pos1 = dp[i - 1] % mod;

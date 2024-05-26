@@ -247,7 +247,7 @@ void test() {
       if ((b1 != c1 && b2 == c2 && b3 == c3) ||
           (b1 == c1 && b2 != c2 && b3 == c3) ||
           (b1 == c1 && b2 == c2 && b3 != c3)) {
-        cnt += cost[i]*cost[j];
+        cnt += cost[i] * cost[j];
       }
     }
   }

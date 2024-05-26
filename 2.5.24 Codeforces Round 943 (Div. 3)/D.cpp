@@ -212,8 +212,7 @@ ll calcmaxscore(vll &a, vll &p, ll ind, ll k, ll scoretillnow) {
   /* if (dp[k] != -1) */
   /* return dp[k]; */
   ll stay = calcmaxscore(a, p, ind, k - 1, (scoretillnow + a[ind]) % mod);
-  ll jump =
-      calcmaxscore(a, p, p[ind], k - 1, (scoretillnow + a[ind]) % mod);
+  ll jump = calcmaxscore(a, p, p[ind], k - 1, (scoretillnow + a[ind]) % mod);
   return max(stay, jump);
 }
 

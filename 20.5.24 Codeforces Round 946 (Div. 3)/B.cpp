@@ -216,17 +216,12 @@ void test() {
 
   UNIQUE(s);
   dbg(s);
-  map<char,int> ind;
-  fori(0, s.size()){
-    ind[s[i]] = s.size() -i-1;
-  }
+  map<char, int> ind;
+  fori(0, s.size()) { ind[s[i]] = s.size() - i - 1; }
 
-  fori(0,n){
-    cout << s[ind[copys[i]]];
-  }
+  fori(0, n) { cout << s[ind[copys[i]]]; }
 
   cout << endl;
-
 }
 
 int main() {

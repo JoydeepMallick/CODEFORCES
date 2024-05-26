@@ -225,7 +225,7 @@ void test() {
     ll lcmval = lcmofall(b);
     dbg(b, lcmval);
     ll i = 0;
-    if(find(all(b), lcmval) == b.end()){
+    if (find(all(b), lcmval) == b.end()) {
       break;
     }
     while (i < b.size()) {
