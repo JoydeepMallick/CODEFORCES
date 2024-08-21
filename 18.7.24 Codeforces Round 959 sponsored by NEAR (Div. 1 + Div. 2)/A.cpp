@@ -5,6 +5,7 @@
 */
 
 #include "bits/stdc++.h"
+#include <vector>
 #pragma GCC optimize("O3,unroll-loops")
 // #pragma GCC target("bmi,bmi2,lzcnt,popcnt")
 // #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt") //intel pentium processors
@@ -208,35 +209,44 @@ const ld PI = 3.141592653589793238462;
  * BELOW____________________________________*/
 
 void test() {
-  ll n;
-  cin >> n;
-  vll a(n);
-  read(a);
+  int n, m;
+  cin >> n >> m;
 
-  vll odd, even;
-  for (auto ele : a) {
-    if (ele & 1)
-      odd.pb(ele);
+  vector<int> a(m * n + 1, 0), b(m * n + 1, 0);
+
+  stack<int> ele;
+  fori(1, m * n + 1) {
+    cin >> a[i];
+    if (a[i] != i)
+      b[a[i]] = i;
     else
-      even.pb(ele);
+      ele.push(a[i]);
   }
-  if (odd.size() == n || even.size() == n) {
-    cout << "0\n";
+
+  fori(1, m * n + 1) {
+    if (!b[i]) {
+      int tmp = ele.top();
+      if (a[i] != tmp) {
+        b[i] = tmp;
+        ele.pop();
+      } else {
+        ele.pop();
+        int tmp2 = ele.top();
+        b[i] = tmp2;
+        ele.push(tmp);
+      }
+    }
+  }
+
+  if (n * m == 1) {
+    cout << "-1\n";
     return;
   }
-  sort(all(odd));
-  sort(all(even));
-  ll lo = odd.size();
-  ll le = even.size();
-
-  ll ans = even.size();
-  if (even[le - 1] > odd[lo - 1]) {
-    if (le == 1)
-      ans++;
-    else if ((even[le - 2] + odd[lo - 1]) < even[le - 1])
-      ans++;
+  int ind = 1;
+  fori(1, n + 1) {
+    forj(1, m + 1) { cout << b[ind++] << " "; }
+    cout << endl;
   }
-  cout << ans << endl;
 }
 
 int main() {

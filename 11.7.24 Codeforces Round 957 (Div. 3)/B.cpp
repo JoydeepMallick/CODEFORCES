@@ -208,35 +208,20 @@ const ld PI = 3.141592653589793238462;
  * BELOW____________________________________*/
 
 void test() {
-  ll n;
-  cin >> n;
-  vll a(n);
+  int n, k;
+  cin >> n >>k;
+  vector<int> a(k);
   read(a);
 
-  vll odd, even;
-  for (auto ele : a) {
-    if (ele & 1)
-      odd.pb(ele);
-    else
-      even.pb(ele);
-  }
-  if (odd.size() == n || even.size() == n) {
-    cout << "0\n";
-    return;
-  }
-  sort(all(odd));
-  sort(all(even));
-  ll lo = odd.size();
-  ll le = even.size();
+  sort(all(a));
+  int splits = 0, merges = 0;
 
-  ll ans = even.size();
-  if (even[le - 1] > odd[lo - 1]) {
-    if (le == 1)
-      ans++;
-    else if ((even[le - 2] + odd[lo - 1]) < even[le - 1])
-      ans++;
+  fori(0, k - 1) {
+    splits += (a[i] - 1);
+    merges += a[i];
   }
-  cout << ans << endl;
+
+  cout << splits + merges << endl;
 }
 
 int main() {

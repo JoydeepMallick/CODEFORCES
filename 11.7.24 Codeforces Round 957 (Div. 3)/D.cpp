@@ -208,35 +208,71 @@ const ld PI = 3.141592653589793238462;
  * BELOW____________________________________*/
 
 void test() {
-  ll n;
-  cin >> n;
-  vll a(n);
-  read(a);
+  int n, m, k;
+  cin >> n >> m >> k;
 
-  vll odd, even;
-  for (auto ele : a) {
-    if (ele & 1)
-      odd.pb(ele);
-    else
-      even.pb(ele);
-  }
-  if (odd.size() == n || even.size() == n) {
-    cout << "0\n";
-    return;
-  }
-  sort(all(odd));
-  sort(all(even));
-  ll lo = odd.size();
-  ll le = even.size();
+  string a;
+  cin >> a;
 
-  ll ans = even.size();
-  if (even[le - 1] > odd[lo - 1]) {
-    if (le == 1)
-      ans++;
-    else if ((even[le - 2] + odd[lo - 1]) < even[le - 1])
-      ans++;
+  int curpos = -1; // left bank
+  while (true) {
+    int pos = curpos + m;
+    if (pos >= n) {
+      yes;
+      return;
+    }
+    if (a[pos] == 'L') {
+      // jump
+      curpos = pos;
+    } else if (a[pos] == 'C') {
+      // cant swim before it, land needed
+      bool landfound = false;
+      rfor(i, curpos + m - 1, curpos) {
+        if (a[i] == 'L') {
+          curpos = i;
+          landfound = true;
+          break;
+        }
+      }
+      if (!landfound) {
+        no;
+        break;
+      }
+    } else if (a[pos] == 'W') {
+      // check if land after W then swim till land
+      bool landfound = false;
+      fori(pos + 1, pos + k + 1) {
+        if(i >= n ){
+          yes;
+          break;
+        }
+        else if (a[i] == 'C') {
+          // cant swim
+          break;
+        } else if ( a[i] == 'L') {
+          curpos = i;
+          k = (k - (i - pos));//limit of swiming reduced
+          landfound = true;
+          break;
+        }
+      }
+      if (!landfound) {
+        // cant swim forward
+        // check for land back from pos to jump to
+        rfor(i, curpos + m - 1, curpos) {
+          if (a[i] == 'L') {
+            curpos = i;
+            landfound = true;
+            break;
+          }
+        }
+        if (!landfound) {
+          no;
+          break;
+        }
+      }
+    }
   }
-  cout << ans << endl;
 }
 
 int main() {
