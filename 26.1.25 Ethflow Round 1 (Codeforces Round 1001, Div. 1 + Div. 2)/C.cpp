@@ -162,7 +162,6 @@ void test(){
     read(a);
     
     //brute
-
     map<vector<int>, int> dp;
     cout << func(a, n, INT_MIN, dp) << endl;
 
