@@ -124,48 +124,35 @@ const ld PI = 3.141592653589793238462;
 /*________ ADDITIONAL FUNCTION DEFINATIONS NEEDED FOR CURRENT CODE ________*/ 
 
 
-int func(vector<int> arr, int n, int prevtotal, map<vector<int>, int>& dp){
-    //current total of arr 
-    int total = 0;
-    fori(0, n){
-        total += arr[i];
-    }
-    if(dp.find(arr) != dp.end()){
-        return dp[arr];
-    }
-    if(n == 1){
-        return dp[arr] = max(total, prevtotal);
-    }
-
-    vector<int> newarr1(n-1, 0), newarr2(n-1, 0);
-    //2 options and operations
-    //1. rotate and difference
-    fori(0, n-1){
-        newarr1[i] = arr[n - i - 2] - arr[n - i - 1];
-    }
-
-    //2. difference
-    fori(0, n-1){
-        newarr2[i] = arr[i+1] - arr[i];
-    }
-
-    return dp[arr] = max(func(newarr1, n-1, total, dp), func(newarr2, n-1, total, dp));
-
-}
-
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-    int n;
+      int n;
     cin >> n;
-    vector<int> a(n);
-    read(a);
-    
-    //brute
-    map<vector<int>, int> dp;
-    cout << func(a, n, INT_MIN, dp) << endl;
+    vector<ll> a(n);  // Use long long to avoid integer overflow
+    for (int i = 0; i < n; i++) cin >> a[i];
 
+    ll ans = LLONG_MIN;
+    int noofelements = n;
+
+    while (noofelements > 0) {
+        // Calculate the current sum
+        ll sum = accumulate(a.begin(), a.begin() + noofelements, 0ll);
+        if (noofelements == n) ans = max(ans, sum);
+        else ans = max({ans, sum, -sum});
+
+        // Reduce by step 2 (update elements)
+        for (int i = 0; i < noofelements - 1; i++) {
+            a[i] = a[i + 1] - a[i];
+        }
+
+        // Decrease the number of elements (instead of pop_back)
+        noofelements--;
+    }
+
+    cout << ans << endl;
 }
+
 
 int main(){
   ios_base::sync_with_stdio(false);
