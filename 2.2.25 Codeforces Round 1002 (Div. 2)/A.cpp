@@ -132,7 +132,7 @@ void test(){
   cin >> n;
   vector<int> a(n), b(n);
   read(a);read(b);
-
+/*
   //find freq of all elements
   map<int, int> frA, frB;
   for(auto x: a) frA[x]++;
@@ -148,6 +148,12 @@ void test(){
     if(cntA < 2 && cntB < 2) no;
     else yes;
   }
+  */ 
+  set<int> A, B;
+  for(auto ele : a) A.insert(ele);
+  for(auto ele : b) B.insert(ele);
+  if(A.size() + B.size() < 4) no;
+  else yes;
 }
 
 int main(){
