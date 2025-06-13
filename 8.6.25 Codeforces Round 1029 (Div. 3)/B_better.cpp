@@ -130,36 +130,17 @@ const ld PI = 3.141592653589793238462;
 void test(){
     int n;
     cin >> n;
-    vector<int> a(n);
-    read(a);
-   
-    //assume array is  explodable
-    //then after some iterations all elements will be 0 
-    //assume x operations of type 1 and y operations of type 2 have been performed.
-    //Then 
-    //a1 - (1.x + n.y) = 0  ==> a1 = x + ny
-    //similarly for all elements
-    //a2 = 2x + (n-1)y
-    //.....
-    //then a2 - a1 = x - y  or x = a2 - a1 + y 
-    // now put x in a1 = x + ny, we get y = (2a1 - a2)/ (n+1)
-    // and now x = (a2 - a1 + y) = (a2 - a1 + (2a1 - a2)/(n+1)) = (n*a1 - a2)/(n+1) 
-    //getting x and y if we can construct the entire array then only its possible else not.
-    //
-
-    int y = (2 * a[0] - a[1]) / (n + 1);
-    int x = a[1] - a[0] + y;
-    
-    y = max(y, 0); // y should be non-negative
-    x = max(x, 0); // x should be non-negative
-
-    vector<int> blastarr(n);
-    fori(0, n){
-        blastarr[i] = (i+1)*x + (n - i) * y;
+     
+    // if all bigger elements between smallest 2 then we can always remove
+    // 1.........2 
+    vector<int> v(n);
+    v[0] = 1;
+    v[n-1] = 2;
+    fori(1, n-1){
+        v[i] = i+2;
     }
+    print(v);
 
-    if(blastarr == a) yes;
-    else no;
 }
 
 int main(){
