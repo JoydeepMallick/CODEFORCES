@@ -5,6 +5,7 @@
 */
 
 #include"bits/stdc++.h"
+#include <utility>
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("bmi,bmi2,lzcnt,popcnt") 
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt") //intel pentium processors released post 2020 support avx2, unfortunately my Pentium 2020M doesn't 
@@ -128,10 +129,29 @@ const ld PI = 3.141592653589793238462;
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-    ll n;
-    cin >> n;
-    vll a(n);
-    read(a);
+  int k, a,b,x,y;
+  cin >> k >> a >> b >> x >> y;
+
+  int p = ceil((k-a)/x);
+  int q = ceil((k-b)/y); 
+  //n1x + n2y = k
+  //n1 <= p, n2 <= q 
+  //maximize n1+n2 
+
+if(p < q){
+  swap(p,q);
+}
+  int ans = 0;
+  dbg(p, q);
+  for(int i = 0; i <= p; i++){
+    //evaluate all possible values of n1 and compute corresponding n2 and check max sum 
+    int n1 = i;
+    int n2 = ceil((k - n1*x - b)/y);
+    if(n2 == 0) n2 = 1;
+    else n2 = max(0, n2);
+    ans = max(ans, n1 + n2);
+  }
+  cout << ans << endl;
       
 
 }
