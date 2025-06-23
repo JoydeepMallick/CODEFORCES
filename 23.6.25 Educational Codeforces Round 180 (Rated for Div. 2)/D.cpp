@@ -1,3 +1,4 @@
+
 /*
    _________________________
    | Written by silent_Joy |
@@ -128,11 +129,10 @@ const ld PI = 3.141592653589793238462;
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-  int a, x,y;
-  //to gurantee win a cannot lie between x and y
-  cin >> a >> x >> y;
-  if(a >= min(x,y) && a <= max(x,y)) no;
-  else yes;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    read(a);
       
 
 }

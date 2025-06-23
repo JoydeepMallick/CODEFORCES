@@ -1,3 +1,4 @@
+
 /*
    _________________________
    | Written by silent_Joy |
@@ -128,12 +129,43 @@ const ld PI = 3.141592653589793238462;
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-  int a, x,y;
-  //to gurantee win a cannot lie between x and y
-  cin >> a >> x >> y;
-  if(a >= min(x,y) && a <= max(x,y)) no;
-  else yes;
-      
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    read(a);
+
+    int ans = 0;
+    
+    if(n == 2){
+      if(a[0] != a[1]) ans = -1;
+      cout << ans << endl;
+      return;
+    }
+    //find peak or valley  if exists just one step needed 
+    //if plateau no steps
+    bool found = false;
+    bool adj = false;
+    fori(1, n-1){
+      if(a[i-1] < a[i] && a[i] > a[i+1]){
+        found = true;
+        break;
+      }else if(a[i-1] > a[i] && a[i] < a[i+1]){
+        found = true;
+        break;
+      }else if(a[i-1] == a[i] || a[i] == a[i+1]){
+        found = true;
+        adj = true;
+        break;
+      }
+    }
+    
+    if(found){
+      if(adj) ans = 0;
+      else ans = 1;
+    }
+    else ans = -1;//entirely sorted unique array
+
+    cout << ans << endl;
 
 }
 

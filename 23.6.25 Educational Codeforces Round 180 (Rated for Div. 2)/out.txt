@@ -1,1 +1,21 @@
-0.00011ms
+_____ TEST CASE #1 _____
+0
+_____ TEST CASE #2 _____
+-1
+_____ TEST CASE #3 _____
+1
+_____ TEST CASE #4 _____
+1
+_____ TEST CASE #5 _____
+1
+_____ TEST CASE #6 _____
+1
+_____ TEST CASE #7 _____
+-1
+_____ TEST CASE #8 _____
+0
+_____ TEST CASE #9 _____
+1
+_____ TEST CASE #10 _____
+0
+0.034365ms
