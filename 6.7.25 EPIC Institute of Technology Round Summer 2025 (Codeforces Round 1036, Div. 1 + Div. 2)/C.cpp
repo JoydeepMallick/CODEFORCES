@@ -136,21 +136,17 @@ void test(){
     // ai > ai+1 
     //we are sure 28, 42, 14, 28 will not occur since x would not be possible 
     vll Xs;
-    Xs.pb(1); //default answer
     fori(0, n-1){
-      if(a[i] > a[i+1]){
         ll x = a[i] / __gcd(a[i], a[i+1]);
         Xs.pb(x);
-      }else if(a[i+1] % a[i] != 0){
-        ll hcf = __gcd(a[i], a[i+1]);
-        ll x1 = a[i] / hcf;
-        ll x2 = a[i+1] / hcf;
-        Xs.pb(x1);
-        Xs.pb(x2);
-      }
     }
     dbg(Xs);
-    cout << Xs[Xs.size()-1] << endl;
+    
+    ll lcmval = 1;
+    for(auto val : Xs){
+      lcmval = lcm(lcmval, val);
+    }
+    cout << lcmval << endl;
 }
 
 int main(){
