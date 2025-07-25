@@ -128,29 +128,19 @@ const ld PI = 3.141592653589793238462;
 /*_________________________________WRITE YOUR CODE FOR EACH TEST CASE BELOW____________________________________*/
 
 void test(){
-  int a,b,k;
+  ll a,b,k;
   cin >> a >> b >> k;
   
 
-  int hcf = __gcd(a,b);
+  ll hcf = __gcd(a,b);
   //a >1 and b>1 so no 0 ans 
-  int redA = a/hcf, redB = b/hcf;
+  ll redA = a/hcf, redB = b/hcf;
   
   if(redA <= k && redB <= k) {//reduce (redA, redB) hcf times
     cout << 1 << endl;
-    return;
   } 
       
-  //extra steps to make A = B by 1,0 assume A > B
-  int ans = 1;
-
-  //now apply 1,1
-  if(redB != 0){ 
-    ans +=1;
-  }
-  
-
-  cout << ans << endl;
+  else cout << 2 << endl;
 
 
 }
