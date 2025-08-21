@@ -1,0 +1,9 @@
+_____ TEST CASE #1 _____
+dota
+_____ TEST CASE #2 _____
+codeforces
+_____ TEST CASE #3 _____
+abacaba
+_____ TEST CASE #4 _____
+babizon
+0.036509ms
